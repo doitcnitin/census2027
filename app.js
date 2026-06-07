@@ -13,21 +13,7 @@ function(){
   .getElementById("censusPost")
   .addEventListener(
     "change",
-    function(){
-
-      refreshHLBDropdown();
-
-      if(
-        this.value === "Supervisor"
-        &&
-        document.getElementById(
-          "circleNo"
-        ).value
-      ){
-        loadExistingData();
-      }
-
-    }
+    refreshHLBDropdown
   );
 
   document
@@ -44,6 +30,25 @@ function(){
     onHLBChange
   );
 
+  document
+  .querySelectorAll(
+    'input[type="text"]'
+  )
+  .forEach(function(field){
+
+    field.addEventListener(
+      "input",
+      function(){
+
+        this.value =
+        this.value.toUpperCase();
+
+      }
+    );
+
+  });
+
+});
   document
   .getElementById("ifscCode")
   .addEventListener(
