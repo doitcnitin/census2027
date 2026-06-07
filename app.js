@@ -153,8 +153,15 @@ function refreshHLBDropdown(){
 
   }
 
-  hlb.disabled = false;
+hlb.disabled = false;
 
+document.getElementById(
+"enumeratorName"
+).value='';
+
+document.getElementById(
+"mobileNumber"
+).value='';
 }
 
 function onHLBChange(){
