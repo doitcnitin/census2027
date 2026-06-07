@@ -619,12 +619,17 @@ function validateForm(){
   ){
 
     showToast(
-      "Please Enter Designation",
-      "#d32f2f"
-    );
+"Please Enter Designation",
+"#d32f2f"
+);
 
-    return false;
+document
+.getElementById(
+"designation"
+)
+.focus();
 
+return false;
   }
 
   if(
@@ -637,6 +642,12 @@ function validateForm(){
       "Please Enter Office Name",
       "#d32f2f"
     );
+
+    document
+.getElementById(
+"officeName"
+)
+.focus();
 
     return false;
 
@@ -653,6 +664,12 @@ function validateForm(){
       "#d32f2f"
     );
 
+    document
+.getElementById(
+"officeAddress"
+)
+.focus();
+
     return false;
 
   }
@@ -667,6 +684,12 @@ function validateForm(){
       "Please Enter IFSC Code",
       "#d32f2f"
     );
+
+    document
+.getElementById(
+"ifscCode"
+)
+.focus();
 
     return false;
 
@@ -698,6 +721,12 @@ function validateForm(){
       "#d32f2f"
     );
 
+    document
+.getElementById(
+"accountNumber"
+)
+.focus();
+
     return false;
 
   }
@@ -713,6 +742,12 @@ function validateForm(){
       "#d32f2f"
     );
 
+    document
+.getElementById(
+"consent1"
+)
+.focus();
+
     return false;
 
   }
@@ -727,6 +762,11 @@ function validateForm(){
       "Please Accept Declaration 2",
       "#d32f2f"
     );
+document
+.getElementById(
+"consent2"
+)
+.focus();
 
     return false;
 
