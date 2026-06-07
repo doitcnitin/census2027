@@ -233,3 +233,85 @@ function refreshHLBDropdown(){
   });
 
 }
+document
+.getElementById("hlbNo")
+.addEventListener(
+"change",
+function(){
+
+  const circle =
+  document
+  .getElementById(
+    "circleNo"
+  )
+  .value;
+
+  const hlb =
+  this.value;
+
+  if(!circle || !hlb){
+
+    document
+    .getElementById(
+      "enumeratorName"
+    )
+    .value = '';
+
+    document
+    .getElementById(
+      "mobileNumber"
+    )
+    .value = '';
+
+    return;
+
+  }
+
+  fetch(
+
+    API_URL +
+    "?action=enumerator" +
+    "&circleNo=" +
+    encodeURIComponent(circle) +
+    "&hlbNo=" +
+    encodeURIComponent(hlb)
+
+  )
+
+  .then(r=>r.json())
+
+  .then(function(data){
+
+    console.log(
+      "ENUMERATOR DATA",
+      data
+    );
+
+    document
+    .getElementById(
+      "enumeratorName"
+    )
+    .value =
+    data.enumeratorName || '';
+
+    document
+    .getElementById(
+      "mobileNumber"
+    )
+    .value =
+    data.mobile || '';
+
+  })
+
+  .catch(err=>{
+
+    console.error(err);
+
+    alert(
+      "Unable to load Enumerator Details"
+    );
+
+  });
+
+}
+);
