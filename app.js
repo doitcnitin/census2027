@@ -738,88 +738,58 @@ function validateForm(){
 
 function saveData(){
 
-  if(
-    !validateForm()
-  ){
+  if(!validateForm()){
     return;
   }
 
-  const formData = {
+  let params = new URLSearchParams({
+
+    action:"save",
 
     circleNo:
-    document.getElementById(
-      'circleNo'
-    ).value,
+    document.getElementById("circleNo").value,
 
     hlbNo:
-    document.getElementById(
-      'censusPost'
-    ).value === "Supervisor"
-    ?
-    ''
-    :
-    document.getElementById(
-      'hlbNo'
-    ).value,
+    document.getElementById("censusPost").value === "Supervisor"
+    ? ""
+    : document.getElementById("hlbNo").value,
 
     censusPost:
-    document.getElementById(
-      'censusPost'
-    ).value,
+    document.getElementById("censusPost").value,
 
     supervisorName:
-    document.getElementById(
-      'supervisorName'
-    ).value,
+    document.getElementById("supervisorName").value,
 
     enumeratorName:
-    document.getElementById(
-      'enumeratorName'
-    ).value,
+    document.getElementById("enumeratorName").value,
 
     designation:
-    document.getElementById(
-      'designation'
-    ).value.toUpperCase(),
+    document.getElementById("designation").value,
 
     officeName:
-    document.getElementById(
-      'officeName'
-    ).value.toUpperCase(),
+    document.getElementById("officeName").value,
 
     officeAddress:
-    document.getElementById(
-      'officeAddress'
-    ).value.toUpperCase(),
+    document.getElementById("officeAddress").value,
 
     ifsc:
-    document.getElementById(
-      'ifscCode'
-    ).value.toUpperCase(),
+    document.getElementById("ifscCode").value,
 
     bankName:
-    document.getElementById(
-      'bankName'
-    ).value.toUpperCase(),
+    document.getElementById("bankName").value,
 
     branchName:
-    document.getElementById(
-      'branchName'
-    ).value.toUpperCase(),
+    document.getElementById("branchName").value,
 
     branchAddress:
-    document.getElementById(
-      'branchAddress'
-    ).value,
+    document.getElementById("branchAddress").value,
 
     accountNumber:
 
     document
-    .getElementById(
-      'accountNumber'
-    )
+    .getElementById("accountNumber")
     .value
-    .includes('XXXXXXXX')
+    .includes("XXXXXXXX")
 
     ?
 
@@ -828,44 +798,24 @@ function saveData(){
     :
 
     document
-    .getElementById(
-      'accountNumber'
-    )
+    .getElementById("accountNumber")
     .value
 
-  };
+  });
 
   fetch(
-    API_URL,
-    {
-      method:"POST",
-      headers:{
-        "Content-Type":
-        "application/json"
-      },
-      body:
-      JSON.stringify(
-        formData
-      )
-    }
+    API_URL +
+    "?" +
+    params.toString()
   )
 
   .then(r=>r.json())
 
-  .then(function(response){
+  .then(function(data){
 
     showToast(
-      response.message,
+      data.message,
       "#2e7d32"
-    );
-
-    setTimeout(
-      function(){
-
-        resetForm();
-
-      },
-      1500
     );
 
   })
@@ -875,7 +825,7 @@ function saveData(){
     console.error(err);
 
     showToast(
-      "Unable to Save Record",
+      "Save Failed",
       "#d32f2f"
     );
 
