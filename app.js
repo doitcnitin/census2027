@@ -938,8 +938,17 @@ function fetchIFSCDetails(){
         "#d32f2f"
       );
 
-      clearBankFields();
+document.getElementById(
+'bankName'
+).value='';
 
+document.getElementById(
+'branchName'
+).value='';
+
+document.getElementById(
+'branchAddress'
+).value='';
       return;
 
     }
