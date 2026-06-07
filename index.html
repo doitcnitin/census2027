@@ -3,49 +3,113 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Census 2027 Posting | Bank Detail Collection Form</title>
+<title>Census 2027 Personnel Portal</title>
+
 <meta name="theme-color" content="#138808">
+
 <style>
 
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
 body{
-
-font-family:Arial,sans-serif;
-padding:20px;
-background:#f5f7fa;
-
+font-family:Segoe UI,Arial,sans-serif;
+background:#f4f7fc;
+padding:12px;
 }
 
 .container{
-
-max-width:450px;
+max-width:600px;
 margin:auto;
+}
 
+.header{
+background:#fff;
+border-radius:18px;
+padding:12px;
+text-align:center;
+margin-bottom:12px;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+border-top:4px solid #FF9933;
+border-bottom:4px solid #138808;
+}
+
+.header h1{
+font-size:24px;
+color:#000080;
+margin-bottom:4px;
+}
+
+.header p{
+font-size:14px;
+color:#555;
 }
 
 .card{
-
-background:white;
-padding:20px;
-border-radius:15px;
-box-shadow:0 2px 10px rgba(0,0,0,.1);
-
+background:#fff;
+border-radius:18px;
+padding:18px;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
 
-h2{
-
-text-align:center;
-color:#138808;
-
+.card-title{
+font-size:20px;
+font-weight:700;
+color:#000080;
+margin-bottom:15px;
 }
 
+label{
+display:block;
+margin-top:14px;
+margin-bottom:6px;
+font-weight:600;
+}
+
+input,
 select{
 
 width:100%;
+height:54px;
 padding:12px;
 font-size:16px;
+border:1px solid #d7dde3;
+border-radius:12px;
+}
+
+input[readonly]{
+background:#eef3f8;
+font-weight:600;
+}
+
+@media(max-width:768px){
+
+body{
+padding:10px;
+}
+
+.header h1{
+font-size:22px;
+}
+
+.card-title{
+font-size:22px;
+}
+
+input,
+select{
+font-size:18px;
+height:58px;
+}
+
+label{
+font-size:18px;
+}
 
 }
 
@@ -57,11 +121,21 @@ font-size:16px;
 
 <div class="container">
 
+<div class="header">
+
+<h1>🇮🇳 जनगणना 2027</h1>
+
+<p>
+Personnel & Bank Details Collection Portal
+</p>
+
+</div>
+
 <div class="card">
 
-<h2>
-जनगणना 2027
-</h2>
+<div class="card-title">
+📋 Census Details
+</div>
 
 <label>Census Post</label>
 
@@ -81,8 +155,6 @@ Enumerator
 
 </select>
 
-<br><br>
-
 <label>Circle Number</label>
 
 <select id="circleNo">
@@ -93,8 +165,6 @@ Loading...
 
 </select>
 
-<br><br>
-
 <label>Supervisor Name</label>
 
 <input
@@ -102,16 +172,12 @@ type="text"
 id="supervisorName"
 readonly>
 
-<br><br>
-
 <label>Supervisor Mobile</label>
 
 <input
 type="text"
 id="supervisorMobile"
 readonly>
-
-<br><br>
 
 <label>HLB Number</label>
 
@@ -123,8 +189,6 @@ Select
 
 </select>
 
-<br><br>
-
 <label>Enumerator Name</label>
 
 <input
@@ -132,19 +196,18 @@ type="text"
 id="enumeratorName"
 readonly>
 
-<br><br>
-
 <label>Enumerator Mobile</label>
 
 <input
 type="text"
 id="mobileNumber"
 readonly>
-</div>
 
 </div>
 
-<script src="app.js"></script>
+</div>
+
+<script src="app.js?v=5"></script>
 
 </body>
 </html>
