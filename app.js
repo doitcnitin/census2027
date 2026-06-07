@@ -48,3 +48,31 @@ ${circle}
 });
 
 }
+document
+.getElementById("circleNo")
+.addEventListener(
+"change",
+function(){
+
+const circle =
+this.value;
+
+if(!circle){
+return;
+}
+
+fetch(
+
+API_URL +
+"?action=hlbs" +
+"&circleNo=" +
+encodeURIComponent(circle)
+
+)
+
+.then(r=>r.json())
+
+.then(loadHLBs);
+
+}
+);
