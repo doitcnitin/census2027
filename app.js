@@ -76,3 +76,25 @@ encodeURIComponent(circle)
 
 }
 );
+function loadHLBs(hlbs){
+
+const dropdown =
+document.getElementById(
+"hlbNo"
+);
+
+dropdown.innerHTML =
+'<option value="">Select</option>';
+
+hlbs.forEach(hlb=>{
+
+dropdown.innerHTML +=
+`
+<option value="${hlb}">
+${hlb}
+</option>
+`;
+
+});
+
+}
