@@ -3,6 +3,27 @@ const API_URL =
 
 window.actualAccountNumber = '';
 
+function showLoader(text){
+
+document.getElementById(
+"loader"
+).style.display = "flex";
+
+document.getElementById(
+"loaderText"
+).innerText =
+text || "Loading...";
+
+}
+
+function hideLoader(){
+
+document.getElementById(
+"loader"
+).style.display = "none";
+
+}
+
 document.addEventListener(
 "DOMContentLoaded",
 function(){
