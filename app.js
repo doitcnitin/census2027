@@ -31,25 +31,6 @@ function(){
   );
 
   document
-  .querySelectorAll(
-    'input[type="text"]'
-  )
-  .forEach(function(field){
-
-    field.addEventListener(
-      "input",
-      function(){
-
-        this.value =
-        this.value.toUpperCase();
-
-      }
-    );
-
-  });
-
-});
-  document
   .getElementById("ifscCode")
   .addEventListener(
     "blur",
@@ -83,6 +64,24 @@ function(){
     "click",
     resetForm
   );
+
+document
+  .querySelectorAll(
+    'input[type="text"]'
+  )
+  .forEach(function(field){
+
+    field.addEventListener(
+      "input",
+      function(){
+
+        this.value =
+        this.value.toUpperCase();
+
+      }
+    );
+
+  });
 
 });
 
