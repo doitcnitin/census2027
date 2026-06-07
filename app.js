@@ -938,17 +938,22 @@ function fetchIFSCDetails(){
         "#d32f2f"
       );
 
-document.getElementById(
-'bankName'
-).value='';
+    document.getElementById(
+    'bankName'
+    ).value='';
+    
+    document.getElementById(
+    'branchName'
+    ).value='';
+    
+    document.getElementById(
+    'branchAddress'
+    ).value='';
 
-document.getElementById(
-'branchName'
-).value='';
-
-document.getElementById(
-'branchAddress'
-).value='';
+       document.getElementById(
+  'ifscCode'
+  ).focus();
+      
       return;
 
     }
