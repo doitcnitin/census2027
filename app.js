@@ -99,37 +99,47 @@ function(){
 
   }
 
-  fetch(
+  Promise.all([
 
+  fetch(
     API_URL +
     "?action=supervisor" +
     "&circleNo=" +
     encodeURIComponent(circle)
+  ).then(r=>r.json()),
 
-  )
+  fetch(
+    API_URL +
+    "?action=hlbs" +
+    "&circleNo=" +
+    encodeURIComponent(circle)
+  ).then(r=>r.json())
 
-  .then(r=>r.json())
+])
 
-  .then(function(data){
+.then(([supervisorData, hlbData])=>{
 
-    document
-    .getElementById(
-      "supervisorName"
-    )
-    .value =
-    data.supervisorName || '';
+  document.getElementById(
+    "supervisorName"
+  ).value =
+  supervisorData.supervisorName || '';
 
-    document
-    .getElementById(
-      "supervisorMobile"
-    )
-    .value =
-    data.supervisorMobile || '';
+  document.getElementById(
+    "supervisorMobile"
+  ).value =
+  supervisorData.supervisorMobile || '';
 
-    refreshHLBDropdown();
+  if(
+    document.getElementById(
+      "censusPost"
+    ).value === "Enumerator"
+  ){
 
-  })
+    loadHLBs(hlbData);
 
+  }
+
+})
   .catch(err=>{
 
     console.error(err);
