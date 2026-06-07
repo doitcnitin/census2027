@@ -557,3 +557,603 @@ function loadExistingData(){
   });
 
 }
+function validateForm(){
+
+  if(!document.getElementById('censusPost').value){
+
+    showToast(
+      "Please Select Census Post",
+      "#d32f2f"
+    );
+
+    document.getElementById(
+      'censusPost'
+    ).focus();
+
+    return false;
+
+  }
+
+  if(!document.getElementById('circleNo').value){
+
+    showToast(
+      "Please Select Circle Number",
+      "#d32f2f"
+    );
+
+    document.getElementById(
+      'circleNo'
+    ).focus();
+
+    return false;
+
+  }
+
+  if(
+    document.getElementById(
+      'censusPost'
+    ).value === "Enumerator"
+    &&
+    !document.getElementById(
+      'hlbNo'
+    ).value
+  ){
+
+    showToast(
+      "Please Select HLB Number",
+      "#d32f2f"
+    );
+
+    document.getElementById(
+      'hlbNo'
+    ).focus();
+
+    return false;
+
+  }
+
+  if(
+    !document.getElementById(
+      'designation'
+    ).value.trim()
+  ){
+
+    showToast(
+      "Please Enter Designation",
+      "#d32f2f"
+    );
+
+    return false;
+
+  }
+
+  if(
+    !document.getElementById(
+      'officeName'
+    ).value.trim()
+  ){
+
+    showToast(
+      "Please Enter Office Name",
+      "#d32f2f"
+    );
+
+    return false;
+
+  }
+
+  if(
+    !document.getElementById(
+      'officeAddress'
+    ).value.trim()
+  ){
+
+    showToast(
+      "Please Enter Office Address",
+      "#d32f2f"
+    );
+
+    return false;
+
+  }
+
+  if(
+    !document.getElementById(
+      'ifscCode'
+    ).value.trim()
+  ){
+
+    showToast(
+      "Please Enter IFSC Code",
+      "#d32f2f"
+    );
+
+    return false;
+
+  }
+
+  if(
+    !document.getElementById(
+      'bankName'
+    ).value.trim()
+  ){
+
+    showToast(
+      "Please Enter Valid IFSC Code",
+      "#d32f2f"
+    );
+
+    return false;
+
+  }
+
+  if(
+    !document.getElementById(
+      'accountNumber'
+    ).value.trim()
+  ){
+
+    showToast(
+      "Please Enter Account Number",
+      "#d32f2f"
+    );
+
+    return false;
+
+  }
+
+  if(
+    !document.getElementById(
+      'consent1'
+    ).checked
+  ){
+
+    showToast(
+      "Please Accept Declaration 1",
+      "#d32f2f"
+    );
+
+    return false;
+
+  }
+
+  if(
+    !document.getElementById(
+      'consent2'
+    ).checked
+  ){
+
+    showToast(
+      "Please Accept Declaration 2",
+      "#d32f2f"
+    );
+
+    return false;
+
+  }
+
+  return true;
+
+}
+
+function saveData(){
+
+  if(
+    !validateForm()
+  ){
+    return;
+  }
+
+  const formData = {
+
+    circleNo:
+    document.getElementById(
+      'circleNo'
+    ).value,
+
+    hlbNo:
+    document.getElementById(
+      'censusPost'
+    ).value === "Supervisor"
+    ?
+    ''
+    :
+    document.getElementById(
+      'hlbNo'
+    ).value,
+
+    censusPost:
+    document.getElementById(
+      'censusPost'
+    ).value,
+
+    supervisorName:
+    document.getElementById(
+      'supervisorName'
+    ).value,
+
+    enumeratorName:
+    document.getElementById(
+      'enumeratorName'
+    ).value,
+
+    designation:
+    document.getElementById(
+      'designation'
+    ).value.toUpperCase(),
+
+    officeName:
+    document.getElementById(
+      'officeName'
+    ).value.toUpperCase(),
+
+    officeAddress:
+    document.getElementById(
+      'officeAddress'
+    ).value.toUpperCase(),
+
+    ifsc:
+    document.getElementById(
+      'ifscCode'
+    ).value.toUpperCase(),
+
+    bankName:
+    document.getElementById(
+      'bankName'
+    ).value.toUpperCase(),
+
+    branchName:
+    document.getElementById(
+      'branchName'
+    ).value.toUpperCase(),
+
+    branchAddress:
+    document.getElementById(
+      'branchAddress'
+    ).value,
+
+    accountNumber:
+
+    document
+    .getElementById(
+      'accountNumber'
+    )
+    .value
+    .includes('XXXXXXXX')
+
+    ?
+
+    window.actualAccountNumber
+
+    :
+
+    document
+    .getElementById(
+      'accountNumber'
+    )
+    .value
+
+  };
+
+  fetch(
+    API_URL,
+    {
+      method:"POST",
+      headers:{
+        "Content-Type":
+        "application/json"
+      },
+      body:
+      JSON.stringify(
+        formData
+      )
+    }
+  )
+
+  .then(r=>r.json())
+
+  .then(function(response){
+
+    showToast(
+      response.message,
+      "#2e7d32"
+    );
+
+    setTimeout(
+      function(){
+
+        resetForm();
+
+      },
+      1500
+    );
+
+  })
+
+  .catch(function(err){
+
+    console.error(err);
+
+    showToast(
+      "Unable to Save Record",
+      "#d32f2f"
+    );
+
+  });
+
+}
+
+function fetchIFSCDetails(){
+
+  const ifsc =
+
+  document
+  .getElementById(
+    'ifscCode'
+  )
+  .value
+  .trim()
+  .toUpperCase();
+
+  if(!ifsc){
+
+    document
+    .getElementById(
+      'bankName'
+    ).value='';
+
+    document
+    .getElementById(
+      'branchName'
+    ).value='';
+
+    document
+    .getElementById(
+      'branchAddress'
+    ).value='';
+
+    return;
+
+  }
+
+  fetch(
+
+    API_URL +
+    "?action=ifsc" +
+    "&ifsc=" +
+    encodeURIComponent(ifsc)
+
+  )
+
+  .then(r=>r.json())
+
+  .then(function(data){
+
+    if(!data.success){
+
+      showToast(
+        "Invalid IFSC Code",
+        "#d32f2f"
+      );
+
+      clearBankFields();
+
+      return;
+
+    }
+
+    document
+    .getElementById(
+      'bankName'
+    ).value =
+    data.bankName || '';
+
+    document
+    .getElementById(
+      'branchName'
+    ).value =
+    data.branchName || '';
+
+    document
+    .getElementById(
+      'branchAddress'
+    ).value =
+    data.branchAddress || '';
+
+  })
+
+  .catch(function(){
+
+    showToast(
+      "Unable to Verify IFSC",
+      "#d32f2f"
+    );
+
+  });
+
+}
+
+function resetForm(){
+
+  document.getElementById(
+    "censusPost"
+  ).value='';
+
+  document.getElementById(
+    "circleNo"
+  ).selectedIndex=0;
+
+  document.getElementById(
+    "supervisorName"
+  ).value='';
+
+  document.getElementById(
+    "supervisorMobile"
+  ).value='';
+
+  document.getElementById(
+    "hlbNo"
+  ).innerHTML =
+  '<option value="">Select</option>';
+
+  document.getElementById(
+    "enumeratorName"
+  ).value='';
+
+  document.getElementById(
+    "mobileNumber"
+  ).value='';
+
+  window.actualAccountNumber='';
+
+  clearBankFields();
+
+  document.getElementById(
+    "consent1"
+  ).checked=false;
+
+  document.getElementById(
+    "consent2"
+  ).checked=false;
+
+  enableEditing();
+
+  document.getElementById(
+    "saveBtn"
+  ).disabled=true;
+
+}
+
+function disableEditing(){
+
+  document.getElementById(
+    'designation'
+  ).disabled=true;
+
+  document.getElementById(
+    'officeName'
+  ).disabled=true;
+
+  document.getElementById(
+    'officeAddress'
+  ).disabled=true;
+
+  document.getElementById(
+    'ifscCode'
+  ).disabled=true;
+
+  document.getElementById(
+    'accountNumber'
+  ).disabled=true;
+
+}
+
+function enableEditing(){
+
+  document.getElementById(
+    'designation'
+  ).disabled=false;
+
+  document.getElementById(
+    'officeName'
+  ).disabled=false;
+
+  document.getElementById(
+    'officeAddress'
+  ).disabled=false;
+
+  document.getElementById(
+    'ifscCode'
+  ).disabled=false;
+
+  document.getElementById(
+    'accountNumber'
+  ).disabled=false;
+
+}
+
+function clearBankFields(){
+
+  document.getElementById(
+    'designation'
+  ).value='';
+
+  document.getElementById(
+    'officeName'
+  ).value='';
+
+  document.getElementById(
+    'officeAddress'
+  ).value='';
+
+  document.getElementById(
+    'ifscCode'
+  ).value='';
+
+  document.getElementById(
+    'bankName'
+  ).value='';
+
+  document.getElementById(
+    'branchName'
+  ).value='';
+
+  document.getElementById(
+    'branchAddress'
+  ).value='';
+
+  document.getElementById(
+    'accountNumber'
+  ).value='';
+
+}
+
+function showToast(
+  message,
+  color
+){
+
+  const toast =
+  document.getElementById(
+    "toast"
+  );
+
+  toast.innerHTML =
+  message;
+
+  toast.style.display =
+  "block";
+
+  toast.style.background =
+  color || "#2e7d32";
+
+  setTimeout(
+    function(){
+
+      toast.style.display =
+      "none";
+
+    },
+    3000
+  );
+
+}
+
+function checkConsent(){
+
+  const c1 =
+  document.getElementById(
+    "consent1"
+  ).checked;
+
+  const c2 =
+  document.getElementById(
+    "consent2"
+  ).checked;
+
+  document.getElementById(
+    "saveBtn"
+  ).disabled =
+  !(c1 && c2);
+
+}
