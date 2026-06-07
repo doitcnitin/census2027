@@ -861,6 +861,14 @@ function saveData(){
       data.message,
       "#2e7d32"
     );
+    setTimeout(
+function(){
+
+  resetForm();
+
+},
+1000
+);
 
   })
 
