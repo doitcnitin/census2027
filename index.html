@@ -1,119 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Census 2027 Personnel Portal</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<meta name="theme-color" content="#138808">
+<title>
+Census 2027 | Posting & Bank Details Collection Portal
+</title>
 
-<style>
+<meta
+name="theme-color"
+content="#138808">
 
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
-
-body{
-font-family:Segoe UI,Arial,sans-serif;
-background:#f4f7fc;
-padding:12px;
-}
-
-.container{
-max-width:600px;
-margin:auto;
-}
-
-.header{
-background:#fff;
-border-radius:18px;
-padding:12px;
-text-align:center;
-margin-bottom:12px;
-box-shadow:0 2px 10px rgba(0,0,0,.08);
-border-top:4px solid #FF9933;
-border-bottom:4px solid #138808;
-}
-
-.header h1{
-font-size:24px;
-color:#000080;
-margin-bottom:4px;
-}
-
-.header p{
-font-size:14px;
-color:#555;
-}
-
-.card{
-background:#fff;
-border-radius:18px;
-padding:18px;
-box-shadow:0 2px 10px rgba(0,0,0,.08);
-}
-
-.card-title{
-font-size:20px;
-font-weight:700;
-color:#000080;
-margin-bottom:15px;
-}
-
-label{
-display:block;
-margin-top:14px;
-margin-bottom:6px;
-font-weight:600;
-}
-
-input,
-select{
-
-width:100%;
-height:54px;
-padding:12px;
-font-size:16px;
-border:1px solid #d7dde3;
-border-radius:12px;
-}
-
-input[readonly]{
-background:#eef3f8;
-font-weight:600;
-}
-
-@media(max-width:768px){
-
-body{
-padding:10px;
-}
-
-.header h1{
-font-size:22px;
-}
-
-.card-title{
-font-size:22px;
-}
-
-input,
-select{
-font-size:18px;
-height:58px;
-}
-
-label{
-font-size:18px;
-}
-
-}
-
-</style>
+<link
+rel="stylesheet"
+href="style.css">
 
 </head>
 
@@ -121,23 +27,51 @@ font-size:18px;
 
 <div class="container">
 
+<!-- HEADER -->
+
 <div class="header">
 
-<h1>जनगणना 2027</h1>
+<div class="logo-box">
+
+<img
+class="india-logo"
+src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+alt="India Logo">
+
+</div>
+
+<h1>
+जनगणना 2027
+</h1>
 
 <p>
-Personnel & Bank Details Collection Portal
+Posting & Bank Details Collection Portal
 </p>
 
 </div>
 
+<!-- ADMIN NOTE -->
+
+<div class="admin-note">
+
+⚠️ After final submission, modification is not permitted.
+For any correction, please contact the Administrator.
+
+</div>
+
+<!-- CENSUS DETAILS -->
+
 <div class="card">
 
 <div class="card-title">
+
 📋 Census Details
+
 </div>
 
-<label>Census Post</label>
+<label>
+Census Post
+</label>
 
 <select id="censusPost">
 
@@ -155,7 +89,9 @@ Enumerator
 
 </select>
 
-<label>Circle Number</label>
+<label>
+Circle Number
+</label>
 
 <select id="circleNo">
 
@@ -165,21 +101,27 @@ Loading...
 
 </select>
 
-<label>Supervisor Name</label>
+<label>
+Supervisor Name
+</label>
 
 <input
 type="text"
 id="supervisorName"
 readonly>
 
-<label>Supervisor Mobile</label>
+<label>
+Supervisor Mobile
+</label>
 
 <input
 type="text"
 id="supervisorMobile"
 readonly>
 
-<label>HLB Number</label>
+<label>
+HLB Number
+</label>
 
 <select id="hlbNo">
 
@@ -189,14 +131,18 @@ Select
 
 </select>
 
-<label>Enumerator Name</label>
+<label>
+Enumerator Name
+</label>
 
 <input
 type="text"
 id="enumeratorName"
 readonly>
 
-<label>Enumerator Mobile</label>
+<label>
+Mobile Number
+</label>
 
 <input
 type="text"
@@ -205,9 +151,176 @@ readonly>
 
 </div>
 
+<!-- OFFICE DETAILS -->
+
+<div class="card">
+
+<div class="card-title">
+
+🏢 Office Details
+
 </div>
 
-<script src="app.js?v=5"></script>
+<label>
+Designation
+</label>
+
+<input
+type="text"
+id="designation"
+autocomplete="off">
+
+<label>
+Office Name
+</label>
+
+<input
+type="text"
+id="officeName"
+autocomplete="off">
+
+<label>
+Office Address
+</label>
+
+<textarea
+id="officeAddress"
+rows="3"></textarea>
+
+</div>
+
+<!-- BANK DETAILS -->
+
+<div class="card">
+
+<div class="card-title">
+
+🏦 Bank Details
+
+</div>
+
+<label>
+IFSC Code
+</label>
+
+<input
+type="text"
+id="ifscCode"
+autocomplete="off">
+
+<label>
+Bank Name
+</label>
+
+<input
+type="text"
+id="bankName"
+readonly>
+
+<label>
+Branch Name
+</label>
+
+<input
+type="text"
+id="branchName"
+readonly>
+
+<label>
+Branch Address
+</label>
+
+<textarea
+id="branchAddress"
+rows="3"
+readonly></textarea>
+
+<label>
+Account Number
+</label>
+
+<input
+type="text"
+id="accountNumber"
+autocomplete="off">
+
+</div>
+
+<!-- DECLARATIONS -->
+
+<div class="card">
+
+<div class="card-title">
+
+📝 Declaration
+
+</div>
+
+<label class="consent-label">
+
+<input
+type="checkbox"
+id="consent1">
+
+<span>
+
+I hereby certify that the information provided by me is true and correct.
+
+</span>
+
+</label>
+
+<label class="consent-label">
+
+<input
+type="checkbox"
+id="consent2">
+
+<span>
+
+I confirm that the bank account details entered above belong to me and are correct.
+
+</span>
+
+</label>
+
+</div>
+
+<!-- FOOTER SPACE -->
+
+<div style="height:90px"></div>
+
+</div>
+
+<!-- FIXED ACTION BAR -->
+
+<div class="button-row">
+
+<button
+id="saveBtn"
+type="button"
+class="save-btn">
+
+💾 Save Details
+
+</button>
+
+<button
+id="clearBtn"
+type="button"
+class="clear-btn">
+
+🔄 Clear Form
+
+</button>
+
+</div>
+
+<!-- TOAST -->
+
+<div id="toast"></div>
+
+<script src="app.js?v=1"></script>
 
 </body>
 </html>
