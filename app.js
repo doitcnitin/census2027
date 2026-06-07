@@ -516,12 +516,15 @@ function loadExistingData(){
     .value =
     data.accountNumber || '';
 
-    if(
-      String(
-        data.editAllowed
-      ).toUpperCase()
-      === "FALSE"
-    ){
+    const editFlag =
+String(
+  data.editAllowed || ''
+)
+.trim()
+.toUpperCase();
+
+if(editFlag === "FALSE")
+{
 
       disableEditing();
 
