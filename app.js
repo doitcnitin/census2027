@@ -188,6 +188,9 @@ function onCircleChange(){
     return;
   }
 
+  showLoader(
+"Fetching Supervisor Details..."
+);
   Promise.all([
 
     fetch(
@@ -210,6 +213,7 @@ function onCircleChange(){
 
   .then(function(result){
 
+    hideLoader();
     const supData =
     result[0];
 
@@ -230,8 +234,7 @@ function onCircleChange(){
     .value =
     supData.supervisorMobile || '';
 
-    refreshHLBDropdown();
-
+ 
     if(
       document
       .getElementById(
@@ -262,6 +265,7 @@ function onCircleChange(){
 
   .catch(function(err){
 
+    hideLoader();
     console.error(err);
 
     showToast(
@@ -368,6 +372,9 @@ function onHLBChange(){
     return;
   }
 
+  showLoader(
+"Fetching Enumerator Details..."
+);
   fetch(
 
     API_URL +
@@ -383,6 +390,7 @@ function onHLBChange(){
 
   .then(function(data){
 
+    hideLoader();
     document
     .getElementById(
       "enumeratorName"
@@ -403,6 +411,7 @@ function onHLBChange(){
 
   .catch(function(err){
 
+    hideLoader();
     console.error(err);
 
     showToast(
@@ -451,6 +460,9 @@ function loadExistingData(){
     hlb = "";
   }
 
+  showLoader(
+"Checking Existing Record..."
+);
   fetch(
 
     API_URL +
@@ -468,6 +480,7 @@ function loadExistingData(){
 
   .then(function(data){
 
+    hideLoader();
     if(
       !data ||
       !data.found
@@ -575,6 +588,7 @@ if(editFlag === "FALSE")
 
   .catch(function(err){
 
+    hideLoader();
     console.error(err);
 
     showToast(
@@ -871,6 +885,9 @@ function saveData(){
 
   });
 
+showLoader(
+"Saving Details..."
+);
   fetch(
     API_URL +
     "?" +
@@ -881,6 +898,7 @@ function saveData(){
 
   .then(function(data){
 
+    hideLoader();
     showToast(
       data.message,
       "#2e7d32"
@@ -898,6 +916,7 @@ function(){
 
   .catch(function(err){
 
+    hideLoader();
     console.error(err);
 
     showToast(
@@ -942,6 +961,9 @@ function fetchIFSCDetails(){
 
   }
 
+  showLoader(
+"Verifying IFSC..."
+);
   fetch(
 
     API_URL +
@@ -955,6 +977,7 @@ function fetchIFSCDetails(){
 
   .then(function(data){
 
+    hideLoader();
     if(!data.success){
 
       showToast(
@@ -972,6 +995,10 @@ function fetchIFSCDetails(){
     
     document.getElementById(
     'branchAddress'
+    ).value='';
+
+      document.getElementById(
+    'ifscCode'
     ).value='';
 
        document.getElementById(
@@ -1004,6 +1031,7 @@ function fetchIFSCDetails(){
 
   .catch(function(){
 
+    hideLoader();
     showToast(
       "Unable to Verify IFSC",
       "#d32f2f"
