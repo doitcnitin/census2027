@@ -3,98 +3,223 @@ const API_URL =
 
 window.onload = function(){
 
-fetch(
-API_URL +
-"?action=circles"
-)
+  fetch(
+    API_URL +
+    "?action=circles"
+  )
+  .then(response => response.json())
+  .then(loadCircles)
+  .catch(err=>{
 
-.then(response =>
-response.json()
-)
+    alert("Error Loading Circles");
 
-.then(loadCircles)
+    console.error(err);
 
-.catch(err=>{
-
-alert(
-"Error Loading Circles"
-);
-
-console.error(err);
-
-});
+  });
 
 };
 
 function loadCircles(circles){
 
-const dropdown =
-document.getElementById(
-"circleNo"
-);
+  const dropdown =
+  document.getElementById(
+    "circleNo"
+  );
 
-dropdown.innerHTML =
-'<option value="">Select</option>';
+  dropdown.innerHTML =
+  '<option value="">Select</option>';
 
-circles.forEach(circle=>{
+  circles.forEach(circle=>{
 
-dropdown.innerHTML +=
-`
-<option value="${circle}">
-${circle}
-</option>
-`;
+    dropdown.innerHTML +=
+    `
+    <option value="${circle}">
+    ${circle}
+    </option>
+    `;
 
-});
+  });
 
 }
+
+function loadHLBs(hlbs){
+
+  const dropdown =
+  document.getElementById(
+    "hlbNo"
+  );
+
+  dropdown.innerHTML =
+  '<option value="">Select</option>';
+
+  hlbs.forEach(hlb=>{
+
+    dropdown.innerHTML +=
+    `
+    <option value="${hlb}">
+    ${hlb}
+    </option>
+    `;
+
+  });
+
+}
+
+document
+.getElementById("censusPost")
+.addEventListener(
+"change",
+function(){
+
+  refreshHLBDropdown();
+
+}
+);
+
 document
 .getElementById("circleNo")
 .addEventListener(
 "change",
 function(){
 
-const circle =
-this.value;
+  const circle =
+  this.value;
 
-if(!circle){
-return;
-}
+  if(!circle){
 
-fetch(
+    document.getElementById(
+      "supervisorName"
+    ).value = '';
 
-API_URL +
-"?action=hlbs" +
-"&circleNo=" +
-encodeURIComponent(circle)
+    document.getElementById(
+      "supervisorMobile"
+    ).value = '';
 
-)
+    return;
 
-.then(r=>r.json())
+  }
 
-.then(loadHLBs);
+  fetch(
+
+    API_URL +
+    "?action=supervisor" +
+    "&circleNo=" +
+    encodeURIComponent(circle)
+
+  )
+
+  .then(r=>r.json())
+
+  .then(function(data){
+
+    document
+    .getElementById(
+      "supervisorName"
+    )
+    .value =
+    data.supervisorName || '';
+
+    document
+    .getElementById(
+      "supervisorMobile"
+    )
+    .value =
+    data.supervisorMobile || '';
+
+    refreshHLBDropdown();
+
+  })
+
+  .catch(err=>{
+
+    console.error(err);
+
+    alert(
+      "Unable to load supervisor details"
+    );
+
+  });
 
 }
 );
-function loadHLBs(hlbs){
 
-const dropdown =
-document.getElementById(
-"hlbNo"
-);
+function refreshHLBDropdown(){
 
-dropdown.innerHTML =
-'<option value="">Select</option>';
+  const post =
+  document
+  .getElementById(
+    "censusPost"
+  )
+  .value;
 
-hlbs.forEach(hlb=>{
+  const circle =
+  document
+  .getElementById(
+    "circleNo"
+  )
+  .value;
 
-dropdown.innerHTML +=
-`
-<option value="${hlb}">
-${hlb}
-</option>
-`;
+  const hlb =
+  document
+  .getElementById(
+    "hlbNo"
+  );
 
-});
+  if(post !== "Enumerator"){
+
+    hlb.disabled = true;
+
+    hlb.innerHTML =
+    '<option value="">Not Applicable</option>';
+
+    document
+    .getElementById(
+      "enumeratorName"
+    )
+    .value = '';
+
+    document
+    .getElementById(
+      "mobileNumber"
+    )
+    .value = '';
+
+    return;
+
+  }
+
+  hlb.disabled = false;
+
+  if(!circle){
+
+    hlb.innerHTML =
+    '<option value="">Select Circle First</option>';
+
+    return;
+
+  }
+
+  fetch(
+
+    API_URL +
+    "?action=hlbs" +
+    "&circleNo=" +
+    encodeURIComponent(circle)
+
+  )
+
+  .then(r=>r.json())
+
+  .then(loadHLBs)
+
+  .catch(err=>{
+
+    console.error(err);
+
+    alert(
+      "Unable to load HLB list"
+    );
+
+  });
 
 }
